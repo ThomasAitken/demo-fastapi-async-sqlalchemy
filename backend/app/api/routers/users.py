@@ -11,7 +11,7 @@ router = APIRouter(
 )
 
 @router.get(
-    "/{encrypted_id}",
+    "/{user_id}",
     response_model=User,
     dependencies=[Depends(validate_is_authenticated)],
 )
