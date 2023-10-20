@@ -1,16 +1,12 @@
 import asyncio
 import os
 from logging.config import fileConfig
-from typing import TYPE_CHECKING
 
 from alembic import context
 from app.models import Base
 from asyncpg import Connection
 from sqlalchemy import pool
 from sqlalchemy.ext.asyncio import async_engine_from_config
-
-if TYPE_CHECKING:
-    from alembic.environment import EnvironmentContext
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
