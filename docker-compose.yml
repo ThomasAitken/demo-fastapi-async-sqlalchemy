@@ -1,0 +1,63 @@
+version: "3.7"
+services:
+  postgres:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: dev-user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dev_db
+    ports:
+      - 5432:5432
+    expose:
+      - "5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data:cached
+
+  test-postgres:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: test-user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: test_db
+    ports:
+      - 5434:5432 # Use a different port to avoid conflicts with the main database
+    expose:
+      - "5434" # Exposing the different port for clarity
+    volumes:
+      - test-db-data:/var/lib/postgresql/data:cached
+
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    command: python app/main.py
+    tty: true
+    volumes:
+      - ./backend:/backend/:cached
+      - ./.docker/.ipython:/root/.ipython:cached
+    environment:
+      PYTHONPATH: .
+      DATABASE_URL: "postgresql+asyncpg://dev-user:password@postgres:5432/dev_db"
+    depends_on:
+      - "postgres"
+    ports:
+      - 8000:8000
+
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    stdin_open: true
+    volumes:
+      - "./frontend:/app:cached"
+      - "./frontend/node_modules:/app/node_modules:cached"
+    environment:
+      - NODE_ENV=development
+    ports:
+      - 3000:3000
+
+volumes:
+  db-data:
+  test-db-data:

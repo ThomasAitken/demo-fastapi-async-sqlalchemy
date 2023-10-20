@@ -1,0 +1,48 @@
+{
+    "editor.formatOnSave": true,
+    "editor.wordWrap": "on",
+    
+    // Python
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+        "editor.formatOnType": true
+    },
+    "black-formatter.args": ["--line-length=120"],
+    "python.analysis.indexing": true,
+    "isort.args": ["--profile", "black", "--settings-file", "./backend/pyproject.toml"],
+    "mypy-type-checker.args": ["--config-file=./backend/pyproject.toml"],
+
+    // JS, TS, React
+    "[javascript]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {        
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": true,
+            "source.fixAll.tslint": true,
+            "source.fixAll.stylelint": true
+        }
+    },
+    "[typescriptreact]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": true,
+            "source.fixAll.tslint": true,
+            "source.fixAll.stylelint": true
+        }
+    },
+    "prettier.printWidth": 120,
+
+    // Misc
+    "workbench.editor.limit.enabled": true,
+    "workbench.editor.limit.value": 20,
+    "workbench.editor.enablePreview": false,
+    "editor.inlineSuggest.enabled": true,
+}
