@@ -7,4 +7,4 @@ fi
 test_path="$1"
 shift
 
-TEST=1 DATABASE_URL="postgresql+asyncpg://ddp-test-user:password@test-postgres:5432/ddp_test" docker compose run --rm -e TEST -e DATABASE_URL backend pytest "$test_path" "$@"
+TEST=1 DATABASE_URL="postgresql+asyncpg://test-user:password@test-postgres:5432/test_db" docker compose run --rm -e TEST -e DATABASE_URL backend pytest "$test_path" "$@"
