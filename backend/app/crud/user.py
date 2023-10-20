@@ -4,16 +4,8 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
-async def get_user(db_session: AsyncSession, user_id: int, load_all_relationships=False):
-    if load_all_relationships:
-        user = (
-            await db_session.scalars(
-                select(UserDBModel)
-                .where(UserDBModel.id == user_id)
-            )
-        ).first()
-    else:
-        user = (await db_session.scalars(select(UserDBModel).where(UserDBModel.id == user_id))).first()
+async def get_user(db_session: AsyncSession, user_id: int):
+    user = (await db_session.scalars(select(UserDBModel).where(UserDBModel.id == user_id))).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user
