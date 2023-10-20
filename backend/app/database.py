@@ -4,7 +4,6 @@ from typing import Any, AsyncIterator
 from app.config import settings
 from sqlalchemy.ext.asyncio import (
     AsyncConnection,
-    AsyncEngine,
     AsyncSession,
     async_sessionmaker,
     create_async_engine,
@@ -17,10 +16,6 @@ Base = declarative_base()
 
 
 class DatabaseSessionManager:
-    def __init__(self):
-        self._engine: AsyncEngine | None = None
-        self._sessionmaker: async_sessionmaker | None = None
-
     def init(self, host: str, engine_kwargs: dict[str, Any] = {}):
         self._engine = create_async_engine(host, **engine_kwargs)
         self._sessionmaker = async_sessionmaker(autocommit=False, bind=self._engine)
@@ -60,9 +55,7 @@ class DatabaseSessionManager:
             await session.close()
 
 
-sessionmanager = DatabaseSessionManager()
-
-sessionmanager.init(settings.database_url, {"echo": settings.echo_sql})
+sessionmanager = DatabaseSessionManager(settings.database_url, {"echo": settings.echo_sql})
 
 
 async def get_db_session():
