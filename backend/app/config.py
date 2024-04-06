@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     test: bool = False
     project_name: str = "My FastAPI project"
     oauth_token_secret: str = "my_dev_secret"
+    log_level: str = "DEBUG"
 
 
 settings = Settings()  # type: ignore

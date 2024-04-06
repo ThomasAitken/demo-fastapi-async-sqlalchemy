@@ -45,18 +45,18 @@ services:
     ports:
       - 8000:8000
 
-  frontend:
-    build:
-      context: frontend
-      dockerfile: Dockerfile
-    stdin_open: true
-    volumes:
-      - "./frontend:/app:cached"
-      - "./frontend/node_modules:/app/node_modules:cached"
-    environment:
-      - NODE_ENV=development
-    ports:
-      - 3000:3000
+  # frontend:
+  #   build:
+  #     context: frontend
+  #     dockerfile: Dockerfile
+  #   stdin_open: true
+  #   volumes:
+  #     - "./frontend:/app:cached"
+  #     - "./frontend/node_modules:/app/node_modules:cached"
+  #   environment:
+  #     - NODE_ENV=development
+  #   ports:
+  #     - 3000:3000
 
 volumes:
   db-data:

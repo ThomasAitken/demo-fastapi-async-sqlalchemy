@@ -3,12 +3,13 @@ import sys
 from contextlib import asynccontextmanager
 
 import uvicorn
+from fastapi import FastAPI
+
 from app.api.routers.users import router as users_router
 from app.config import settings
 from app.database import sessionmanager
-from fastapi import FastAPI
 
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG if settings.debug_logs else logging.INFO)
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG if settings.log_level == "DEBUG" else logging.INFO)
 
 
 @asynccontextmanager
